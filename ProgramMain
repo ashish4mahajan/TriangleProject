@@ -1,0 +1,81 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+
+namespace Assignment_2
+{
+    class Program
+    {
+        public static int ValidateMenuSelection()
+        {
+            String userInput = "";
+            bool validMenuSelect = false;
+            while (validMenuSelect == false)
+            {
+                Console.WriteLine("select an option\n");
+                Console.WriteLine("1= Enter triangle dimensions\n");
+                Console.WriteLine("2= Exit\n");
+                userInput = Console.ReadLine();
+                if (userInput != "1" && userInput != "2")
+                {
+                    Console.WriteLine("Invalid option!!!\n");
+                }
+                else
+                {
+                    validMenuSelect = true;
+                }
+            }
+            Console.WriteLine();
+            return int.Parse(userInput);
+        }
+        public static int ValidateSides(String side)
+        {
+            int number = 1;
+            bool isValid = false;
+            while (isValid == false)
+            {
+                Console.WriteLine($"Enter the {side} : ");
+                String userInput = Console.ReadLine();
+                Console.WriteLine();
+                bool result = int.TryParse(userInput, out number);
+                if (result == false)
+                {
+                    Console.WriteLine("Invalid input!!!\n");
+                }
+                else if (number < 0)
+                {
+                    Console.WriteLine("Negative are not allowed\n");
+                }
+                else
+                {
+                    isValid = true;
+                    Console.WriteLine($"{side} of triangle: {number} ");
+                }
+            }
+            return number;
+        }
+        static void Main(string[] args)
+        {
+            while (true)
+            {
+                String userInput = ValidateMenuSelection().ToString();
+                String result = "";
+                if (userInput == "1")
+                    {
+                        int resultSide1 = Program.ValidateSides("Side 1");
+                        int resultSide2 = Program.ValidateSides("Side 2");
+                        int resultSide3 = Program.ValidateSides("Side 3");
+                        result = TriangleSolver.Analyze(resultSide1, resultSide2, resultSide3);
+                        Console.WriteLine(result);
+                    }
+                    else if(userInput=="2")
+                    {
+                    break;
+                    }
+            }
+        }
+    }
+
+}
